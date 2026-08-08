@@ -1,0 +1,13 @@
+// backend/shared/tsconfig.json
+{
+  "compilerOptions": {
+    "outDir": "dist",
+    "rootDir": "src",
+    "declaration": true,
+    "composite": true,
+    "module": "commonjs",
+    "target": "es2020",
+    "strict": true
+  },
+  "include": ["src"]
+}

@@ -1,0 +1,16 @@
+import crypto from "crypto"
+import { Request } from "express"
+
+export function getDeviceFingerprint(req : Request ) {
+     const userAgent = req.headers["user-agent"] || "";
+     const ip = req.ip || "";
+     const accept = req.headers["accept"] || "";
+
+     const raw = `${userAgent}|${ip}|${accept}`;
+
+     return crypto
+          .createHash("sha256")
+          .update(raw)
+          .digest("hex")
+          .slice(0, 16); // short device id
+}
