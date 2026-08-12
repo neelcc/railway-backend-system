@@ -36,7 +36,7 @@ export const Config = {
      SERVICES: {
           USER_SERVICE_URL: required(process.env.USER_SERVICE_URL, 'USER_SERVICE_URL'),
           // SEARCH_SERVICE_URL: required(process.env.SEARCH_SERVICE_URL, 'SEARCH_SERVICE_URL'),
-          // ADMIN_SERVICE_URL: required(process.env.ADMIN_SERVICE_URL, 'ADMIN_SERVICE_URL'),
+          ADMIN_SERVICE_URL: required(process.env.ADMIN_SERVICE_URL, 'ADMIN_SERVICE_URL'),
           // NOTIFICATION_SERVICE_URL: required(process.env.NOTIFICATION_SERVICE_URL, 'NOTIFICATION_SERVICE_URL'),
           // BOOKING_SERVICE_URL: required(process.env.BOOKING_SERVICE_URL, 'BOOKING_SERVICE_URL'),
           // PAYMENT_SERVICE_URL: required(process.env.PAYMENT_SERVICE_URL, 'PAYMENT_SERVICE_URL'),
