@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from "express";
-import { Train, Route, RouteStation } from "@irctc/shared/src/types/index";
+import { Train, Route } from "../types";
 import createHttpError from "http-errors";
 import prisma from "../config/prisma";
 import logger from "../config/logger";
@@ -66,9 +66,7 @@ export class TrainService {
         const existingTrain = await prisma.train.findUnique({
             where : {
                 id : trainId
-            },
-          include: { seats: { orderBy: { seatNumber: 'asc' } } },
-
+            }
         });
 
         if(!existingTrain) {
@@ -104,14 +102,12 @@ export class TrainService {
         }
 
         const sorted = [...stations].sort((a, b) => a.sequenceNumber - b.sequenceNumber);
-        
-        // REMINDER: Check for duplicate sequence numbers in the stations array TEMPOARILY FIXED WITH '?' 
 
         for (let i = 0; i < sorted.length - 1; i++) {
-            if (sorted[i]?.sequenceNumber === sorted[i + 1]?.sequenceNumber) {
+            if (sorted[i].sequenceNumber === sorted[i + 1].sequenceNumber) {
                 const error = createHttpError(400, 'Duplicate sequence numbers found in the stations array');
                 throw error;
-            }       
+            }
         }
         
         const route = await prisma.route.create({
@@ -136,7 +132,10 @@ export class TrainService {
             }
         })
         
-         
+         const trainWithSeats = await prisma.train.findUnique({
+          where: { id: trainId },
+          include: { seats: { orderBy: { seatNumber: 'asc' } } },
+     });
         
      // publish route + trainwithseats
 
