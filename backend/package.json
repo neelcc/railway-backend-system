@@ -1,0 +1,13 @@
+{
+  "name": "irctc-backend",
+  "private": true,
+  "workspaces": [
+    "user-service",
+    "shared",
+    "*-service"
+  ],
+  "dependencies": {
+    "dotenv": "^17.4.2",
+    "ms": "^2.1.3"
+  }
+}
