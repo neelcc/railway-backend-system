@@ -5,12 +5,64 @@ import { authMiddleware } from '../middlewares/auth';
 
 export const router = express.Router();
 
-router.post('/auth/send-otp', createProxy('userService', Config.SERVICES.USER_SERVICE_URL ));
+// Auth Routes 
 
-router.post('/auth/verify-otp', createProxy('userService', Config.SERVICES.USER_SERVICE_URL ));
+const userServiceProxy = createProxy('userService', Config.SERVICES.USER_SERVICE_URL);
 
-router.post('/auth/login', createProxy('userService', Config.SERVICES.USER_SERVICE_URL ));
 
-router.post('/auth/refresh', createProxy('userService', Config.SERVICES.USER_SERVICE_URL ));
+router.post('/auth/send-otp', userServiceProxy);
 
-router.get('/user/profile', authMiddleware ,createProxy('userService', Config.SERVICES.USER_SERVICE_URL ));
+router.post('/auth/verify-otp', userServiceProxy);
+
+router.post('/auth/login', userServiceProxy);
+
+router.post('/auth/refresh', userServiceProxy);
+
+router.get('/user/profile', authMiddleware, userServiceProxy);
+
+
+// Admin Routes
+
+const adminServiceProxy = createProxy('adminService', Config.SERVICES.ADMIN_SERVICE_URL);
+
+router.post(
+    '/admins/stations/station',
+    authMiddleware,
+    adminServiceProxy
+);
+
+router.post(
+    '/admins/trains/train',
+    authMiddleware,
+    adminServiceProxy
+);
+
+router.post(
+    '/admins/trains/route',
+    authMiddleware,
+    adminServiceProxy
+)
+
+router.post(
+    '/admins/schedules/schedule',
+    authMiddleware,
+    adminServiceProxy
+)
+
+// router.get(
+//     '/admins/stations/station',
+//     authMiddleware,
+//     adminServiceProxy
+// )
+
+// router.get(
+//     '/admins/trains/train/:trainId',
+//     authMiddleware,
+//     adminServiceProxy
+// );
+
+// router.put(
+//     '/admins/schedules/schedule/:scheduleId',
+//     authMiddleware,
+//     adminServiceProxy
+// )

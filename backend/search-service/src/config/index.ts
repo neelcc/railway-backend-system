@@ -16,7 +16,11 @@ function required(value: string | undefined, name: string): string {
 }
 
 export const Config = {
+    PORT: Number(required(process.env.PORT, "PORT")),
+    NODE_ENV: required(process.env.NODE_ENV, "NODE_ENV"),
     ALLOWED_ORIGINS: required(process.env.ALLOWED_ORIGINS, "ALLOWED_ORIGINS"),
-
+    KAFKA_CLIENT_ID : required(process.env.KAFKA_CLIENT_ID , "KAFKA_CLIENT_ID") ,
+    KAFKA_CLIENT_BROKER : required(process.env.KAFKA_CLIENT_BROKER , "KAFKA_CLIENT_BROKER") ,
+    ELASTICSEARCH_URL: required(process.env.ELASTICSEARCH_URL , "ELASTICSEARCH_URL") ,
 
 } as const;
