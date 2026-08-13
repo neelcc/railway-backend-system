@@ -1,0 +1,25 @@
+{
+  "name": "inventory-service",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "devDependencies": {
+    "@irctc/shared" : "*",
+    "@types/cors": "^2.8.19",
+    "@types/express": "^5.0.6",
+    "@types/http-errors": "^2.0.5",
+    "@types/ms": "^2.1.0",
+    "@types/node": "^26.2.0",
+    "@types/pg": "^8.21.0",
+    "prisma": "^7.9.1",
+    "tsx": "^4.23.12",
+    "typescript": "^7.0.2"
+  }
+}
