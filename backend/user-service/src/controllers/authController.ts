@@ -25,8 +25,6 @@ export class AuthController {
 
         const { firstName, lastName, email, password, confirmPassword } = req.body;
 
-        this.logger.info("Send otp called  and data in next ")
-
         this.logger.info('Recieved request to send OTP for user signup', { email, firstName, lastName });
 
         if (!firstName || !lastName || !email || !password || !confirmPassword) {
@@ -80,7 +78,7 @@ export class AuthController {
         const { email, password } = req.body;
 
         this.logger.info("Login controller called with email: " + email);
-
+        
         const deviceId = getDeviceFingerprint(req)
 
         const { accessToken, refreshToken, loggedInUser } = await this.authService.login(email, password, deviceId);
@@ -89,7 +87,6 @@ export class AuthController {
         res.cookie("refreshToken", refreshToken, cookieOptions(Config.REFRESH_TOKEN_EXP_SEC * 1000))
             .status(200).json({
                 success: true,
-                mayka: "cococmelon",
                 message: "Logged in successfully",
                 loggedInUser
             })

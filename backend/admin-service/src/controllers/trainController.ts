@@ -57,6 +57,38 @@ export class TrainController {
 
     }
 
+    getTrainById = async (req: Request, res: Response, next: NextFunction) => {
+
+        const { trainId } = req.params as { trainId: string };
+
+        if(!trainId) {
+            const error = createHttpError(400, 'Missing required field: trainId');
+            return next(error);
+        }
+        
+        const result = await this.trainService.getTrainById(trainId);
+
+        res.status(200).json({
+            status: "success",
+            message: "Train fetched successfully",
+            data: result
+        });
+
+    }
+
+    getAllTrains = async ( req: Request, res: Response, next : NextFunction ) => {
+
+        const result = await this.trainService.getAllTrains();
+
+        res.status(200).json({
+            status: "success",
+            message: "All trains fetched successfully",
+            data: result
+        });
+        
+
+    }
+
 
 
 }

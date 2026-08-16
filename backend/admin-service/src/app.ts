@@ -6,9 +6,9 @@ export const app = express();
 
 app.use(express.json());
 
-app.use("/trains", trainRouter);
-app.use("/schedules", scheduleRouter);
-app.use("/stations", stationRouter);
+app.use("/admins/trains", trainRouter);
+app.use("/admins/schedules", scheduleRouter);
+app.use("/admins/stations", stationRouter);
 
 app.get("/", (req, res) => {
     res.send("Welcome to the Admin Service API");

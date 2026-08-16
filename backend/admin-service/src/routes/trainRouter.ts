@@ -11,6 +11,8 @@ const trainController = new TrainController(trainService, logger);
 
 
 router.post("/train", asyncWrapper(trainController.createTrain));
+router.get("/train/:trainId", asyncWrapper(trainController.getTrainById));
+router.get("/train", asyncWrapper(trainController.getAllTrains)); 
 router.post("/route", asyncWrapper(trainController.createRoute));
 
 

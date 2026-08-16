@@ -118,7 +118,6 @@ export class AuthService {
          }
         await redis.set(`refresh:${existingUser.id}:${deviceId}`, jti, 'EX', Config.REFRESH_TOKEN_EXP_SEC);
          const {password: _password, ...safeUser} = existingUser;
-        console.log("safeuser   ",safeUser);
         
          await redis.set(`user:${existingUser.id}`, JSON.stringify(safeUser), 'EX', Config.REDIS_USER_TTL);
          return {accessToken, refreshToken, loggedInUser: safeUser};

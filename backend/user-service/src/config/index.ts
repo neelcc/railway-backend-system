@@ -4,7 +4,7 @@ import ms, { StringValue } from "ms"
 
 // Load environment file based on NODE_ENV
 config({
-    path: path.join(process.cwd(), `.env.${process.env.NODE_ENV || "dev"}`),
+    path: path.join(process.cwd(), `.env.${process.env.NODE_ENV || "development"}`),
 });
 
 function required(value: string | undefined, name: string): string {

@@ -44,7 +44,7 @@ export const authMiddleware = async (req: Request, res: Response, next: NextFunc
 
     }
     catch (err : unknown) {
-        // console.error('Error in authMiddleware:', error);
+        console.error('Error in authMiddleware:', err);
          if (err instanceof Error && err.name === 'TokenExpiredError') {
                return next(createHttpError(500, 'Access token expired', 'TOKEN_EXPIRED'));
           }

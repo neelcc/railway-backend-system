@@ -10,6 +10,7 @@ const stationController = new StationController(stationService, logger);
 
 
 router.post("/station", asyncWrapper(stationController.createStation));
+router.get("/station", asyncWrapper(stationController.getAllStations));
 
 export default router;
 

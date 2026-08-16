@@ -211,6 +211,7 @@ export const createProxy = (serviceName: keyof typeof circuitBreakers, serviceUr
         // /user/auth/login
         logger.info(`Forwarding request to ${serviceName} at paths: ${req.path}`);
         const pathParts = reqPath.split('/');
+        logger.info(`Path parts: ${pathParts}`);
         const servicePath = '/' + pathParts.slice(1).join('/'); 
         logger.info(`Service paths: ${servicePath}`);
         console.log("************************************************************************");

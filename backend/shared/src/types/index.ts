@@ -1,11 +1,11 @@
 export interface  Station {
-    id : string;
+    id? : string;
     name: string;
     code: string;
     city: string;
     state: string;
-    createdAt: Date;
-    updatedAt: Date;
+    createdAt?: Date;
+    updatedAt?: Date;
 }
 
 enum SeatType {
@@ -24,7 +24,7 @@ export interface Seat {
 }
 
 export interface Train {
-    id : string
+    id? : string
     trainNumber: string;
     trainName: string;
     coachName: string;

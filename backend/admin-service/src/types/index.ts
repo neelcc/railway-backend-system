@@ -1,5 +1,5 @@
 export interface Station {
-    id : string;
+    id? : string;
     name: string;
     code: string;
     city: string;

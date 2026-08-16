@@ -6,13 +6,6 @@ export const generateAccessToken = (userId : string ) => {
      const payload = {
           sub: userId
      }
-
-     console.log("For signing " , Config.JWT_ACCESS_SECRET)
-     console.log("For signing " , Config.JWT_ACCESS_SECRET)
-     console.log("For signing " , Config.JWT_ACCESS_SECRET)
-     console.log("For signing " , Config.JWT_ACCESS_SECRET)
-     console.log("For signing " , Config.JWT_ACCESS_SECRET)
-
      return jwt.sign(payload, Config.JWT_ACCESS_SECRET , { expiresIn: Config.ACCESS_TOKEN_EXP  })
 }
 

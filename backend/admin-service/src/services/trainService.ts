@@ -144,4 +144,33 @@ export class TrainService {
 
     }
 
+    getTrainById = async (trainId : string) => {
+        const train = await prisma.train.findUnique({
+            where : {
+                id : trainId
+            }
+        });
+
+        if(!train) {
+            const error = createHttpError(404, 'Train not found');
+            throw error;
+        }
+
+
+    }
+
+    getAllTrains = async () => {
+        const trains = await prisma.train.findMany({
+            include : {
+                seats : {
+                    orderBy : {
+                        seatNumber : 'asc'
+                    }
+                }
+            }
+        });
+
+        
+        return trains;
+    }
 }

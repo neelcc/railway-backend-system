@@ -14,7 +14,7 @@ export class UserController {
 
         const userId = req.user.sub; 
         const result = await this.userService.getProfile(userId);
-
+        
 
         res.status(200).json({
             "message" : "Success",
