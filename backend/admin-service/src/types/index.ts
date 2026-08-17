@@ -48,3 +48,21 @@ export interface Schedule {
     trainId: string;
     departureDate: string;
 }
+
+
+export interface getAllStationParams {
+    search?: string | undefined ;
+    page?: string | undefined ;
+    limit?: string | undefined;
+}
+
+export enum ScheduleStatus {
+    ACTIVE = "ACTIVE",
+    CANCELLED = "CANCELLED"
+}
+
+export interface getAllSchedulesParams {
+    trainId?: string | undefined;
+    status?: ScheduleStatus | undefined;
+    date?: string | undefined;
+}

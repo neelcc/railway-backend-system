@@ -31,7 +31,16 @@ export class StationController {
 
     getAllStations = async (req: Request, res: Response, next: NextFunction) => {
 
-        const result = await this.stationService.getAllStations();
+        const { search, page, limit } = req.query as { search?: string, page?: string, limit?: string };
+
+        if(search || page || limit) {
+            const error = createHttpError(400, "Query parameters are not supported for this endpoint");
+            this.logger.error(error.message);
+            return next(error);
+        }
+
+
+        const result = await this.stationService.getAllStations( {search, page, limit} );
 
         res.status(200).json({
             status: "success",

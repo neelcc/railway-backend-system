@@ -166,7 +166,18 @@ export class TrainService {
                     orderBy : {
                         seatNumber : 'asc'
                     }
+                },
+                route : {
+                    include : {
+                        routeStations : {
+                            include : { station : true },
+                            orderBy : { sequenceNumber : 'asc' }
+                        }
+                    }
                 }
+            },
+            orderBy : {
+                trainName : 'asc'
             }
         });
 

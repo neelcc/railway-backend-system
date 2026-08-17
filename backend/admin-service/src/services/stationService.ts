@@ -3,6 +3,8 @@ import { Station } from "@irctc/shared/src/types/index";
 import prisma from "../config/prisma";
 import createHttpError from "http-errors";
 import logger from "../config/logger";
+import { getAllStationParams } from "../types";
+import { Prisma } from "../generated/prisma/client";
 
 export class StationService {
 
@@ -39,9 +41,35 @@ export class StationService {
         return station;
     }
 
-    getAllStations = async () => {
-        const stations = await prisma.station.findMany();
-        return stations;
+    getAllStations = async ( { search, page, limit } : getAllStationParams ) => {
+
+        const limitValue = limit ? parseInt(limit) : 10;
+        const pageValue = page ? parseInt(page) : 1;
+
+        const skip = ( pageValue - 1 ) * limitValue;
+
+        const where : Prisma.StationWhereInput = search ? {
+            OR : [
+                { code : { contains : search, mode : "insensitive" } },
+                { name : { contains : search, mode : "insensitive" } },
+                { city : { contains : search, mode : "insensitive" } },
+            ]
+        } : {}
+
+        const [stations, total] = await Promise.all([
+          prisma.station.findMany({
+               where,
+               skip,
+               take: limitValue,
+               orderBy: {
+                    name: 'asc'
+               }
+          }),
+          prisma.station.count({ where })
+     ]);
+
+        return { stations, total };
+
     }
 
     getStationById = async (id: string) => {

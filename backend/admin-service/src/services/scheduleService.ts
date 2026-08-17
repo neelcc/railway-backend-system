@@ -1,6 +1,7 @@
 import createHttpError from "http-errors";
 import prisma from "../config/prisma";
-import { Schedule } from "../types";
+import { getAllSchedulesParams, Schedule } from "../types";
+import { Prisma } from "../generated/prisma/client";
 
 export class ScheduleService {  
 
@@ -73,6 +74,109 @@ export class ScheduleService {
             }
         });
 
+
+         const eventPayload = {
+          scheduleId: schedule.id,
+          trainId: train.id,
+          trainNumber: train.trainNumber,
+          trainName: train.trainName,
+          coachName: train.coachName,
+          totalSeats: train.totalSeats,
+          departureDate: departureDate,
+          status: schedule.status,
+          seats: train.seats.map((s) => ({
+               seatId: s.id,
+               seatNumber: s.seatNumber,
+               seatType: s.seatType,
+               price: s.price,
+          })),
+          route: train.route.routeStations.map((rs) => ({
+               stationId: rs.station.id,
+               stationName: rs.station.name,
+               stationCode: rs.station.code,
+               city: rs.station.city,
+               sequenceNumber: rs.sequenceNumber,
+               arrivalTime: rs.arrivalTime,
+               departureTime: rs.departureTime,
+               distanceFromOrigin: rs.distanceFromOrigin,
+          })),
+     };
+
+     
+     return schedule;
+
     }
-    
+
+    cancelSchedule = async ( scheduleId : string ) => {
+
+        const schedule = await prisma.schedule.findUnique({
+            where : {
+                id : scheduleId
+            }
+        });
+
+        if(!schedule) {
+            const error = createHttpError(404, 'Schedule not found');
+            throw error;
+        }
+
+        if(schedule.status === 'CANCELLED') {
+            const error = createHttpError(400, 'Schedule is already cancelled');
+            throw error;
+        }
+
+        const updatedSchedule = await prisma.schedule.update({
+            where : {
+                id : scheduleId,
+            },
+            data : {
+                status : 'CANCELLED'
+            }
+        }); 
+
+        return updatedSchedule;
+
+    }
+
+    getAllSchedules = async ( query: getAllSchedulesParams = {}) => {
+
+        const where : Prisma.ScheduleWhereInput = {};
+
+        if(query.trainId) {
+            where.trainId = query.trainId;
+        }
+
+        if(query.status) {
+            where.status = query.status;
+        }
+
+        if(query.date) {
+            where.departureDate = query.date;
+        }
+
+        const schedules = await prisma.schedule.findMany({
+            where,
+            include : {
+                train : {
+                    include : {
+                        route : {
+                            include : {
+                                routeStations : {
+                                    include : { station : true },
+                                    orderBy : { sequenceNumber : 'asc' }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            orderBy : {
+                departureDate : 'asc'
+            }
+        });
+        return schedules;
+    }
+
+
+
 }
