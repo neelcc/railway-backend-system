@@ -49,20 +49,20 @@ router.post(
     adminServiceProxy
 )
 
-// router.get(
-//     '/admins/stations/station',
-//     authMiddleware,
-//     adminServiceProxy
-// )
+router.get(
+    '/admins/stations/station',
+    authMiddleware,
+    adminServiceProxy
+)
 
-// router.get(
-//     '/admins/trains/train/:trainId',
-//     authMiddleware,
-//     adminServiceProxy
-// );
+router.get(
+    '/admins/trains/train/:trainId',
+    authMiddleware,
+    adminServiceProxy
+);
 
-// router.put(
-//     '/admins/schedules/schedule/:scheduleId',
-//     authMiddleware,
-//     adminServiceProxy
-// )
+router.put(
+    '/admins/schedules/schedule/:scheduleId',
+    authMiddleware,
+    adminServiceProxy
+)

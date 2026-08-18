@@ -1,9 +1,11 @@
-export interface Station {
+export interface  Station {
     id? : string;
     name: string;
     code: string;
     city: string;
-    state: string;
+    state: string | null;
+    createdAt?: Date;
+    updatedAt?: Date;
 }
 
 enum SeatType {
@@ -47,22 +49,14 @@ export interface Route {
 export interface Schedule {
     trainId: string;
     departureDate: string;
+    
 }
+    
 
 
-export interface getAllStationParams {
-    search?: string | undefined ;
-    page?: string | undefined ;
-    limit?: string | undefined;
-}
 
 export enum ScheduleStatus {
     ACTIVE = "ACTIVE",
     CANCELLED = "CANCELLED"
 }
 
-export interface getAllSchedulesParams {
-    trainId?: string | undefined;
-    status?: ScheduleStatus | undefined;
-    date?: string | undefined;
-}

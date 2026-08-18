@@ -1,7 +1,8 @@
 import createHttpError from "http-errors";
 import prisma from "../config/prisma";
-import { getAllSchedulesParams, Schedule } from "../types";
 import { Prisma } from "../generated/prisma/client";
+import { getAllSchedulesParams, Schedule } from "@irctc/shared/src/types/schedule";
+import { adminProducer } from "../kafka/producer/adminProducer";
 
 export class ScheduleService {  
 
@@ -50,9 +51,6 @@ export class ScheduleService {
             throw error;
         }
 
-    // AND, createdat, updatedat, 
-
-
         const existingSchedule = await prisma.schedule.findUnique({
             where : {
                 trainId_departureDate : {
@@ -100,10 +98,12 @@ export class ScheduleService {
                departureTime: rs.departureTime,
                distanceFromOrigin: rs.distanceFromOrigin,
           })),
-     };
+        };
+
+        await adminProducer.publishScheduleCreated(eventPayload);
 
      
-     return schedule;
+        return schedule;
 
     }
 
@@ -133,6 +133,8 @@ export class ScheduleService {
                 status : 'CANCELLED'
             }
         }); 
+
+        await adminProducer.publishScheduleCancelled(updatedSchedule);
 
         return updatedSchedule;
 

@@ -2,7 +2,7 @@ import { NextFunction, Request, Response } from "express";
 import { ScheduleService } from "../services/scheduleService";
 import { Logger } from "winston";
 import createHttpError from "http-errors";
-import { getAllSchedulesParams } from "../types";
+import { getAllSchedulesParams } from "@irctc/shared/src/types/schedule";
 
 export class ScheduleController {
 

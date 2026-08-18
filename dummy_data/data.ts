@@ -1,8 +1,22 @@
-const StationData = {
+const StationData1 = {
     "name": "New Delhi Railway Station",
     "code": "NDLS",
     "city": "New Delhi",
     "state": "Delhi"
+}
+
+const StationData2 = {
+    "name": "Chhatrapati Shivaji Maharaj Terminus",
+    "code": "CSMT",
+    "city": "Mumbai",
+    "state": "Maharashtra"
+}
+
+const StationData3 = {
+    "name": "Howrah Junction",
+    "code": "HWH",
+    "city": "Kolkata",
+    "state": "West Bengal"
 }
 
 const TrainData = {
@@ -38,3 +52,29 @@ const TrainData = {
     ]
 }       
     
+const RouteData = {
+    "trainId": "fd59416e-e831-4038-be36-9611b70bec47",
+    "stations": [
+        {
+            "stationId": "4056936f-c166-4cc6-a45d-67406675daf4",
+            "sequenceNumber": 1,
+            "arrivalTime": "10:00",
+            "departureTime": "10:15",
+            "distanceFromOrigin": 0
+        },
+        {
+            "stationId": "4666cec9-4745-4bf3-859d-36af47151d44",
+            "sequenceNumber": 2,
+            "arrivalTime": "12:00",
+            "departureTime": "12:15",
+            "distanceFromOrigin": 200
+        },
+        {
+            "stationId": "9808dcbe-2a52-4109-a728-0b421ce0bdd2",
+            "sequenceNumber": 3,
+            "arrivalTime": "14:00",
+            "departureTime": "14:15",
+            "distanceFromOrigin": 400
+        }
+    ]
+}

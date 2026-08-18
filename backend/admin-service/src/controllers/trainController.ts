@@ -89,6 +89,18 @@ export class TrainController {
 
     }
 
+    deleteRoute = async (req: Request, res: Response, next: NextFunction) => {
+
+        const { trainId } = req.params as { trainId: string };
+        const result = await this.trainService.deleteRoute(trainId);
+
+        res.status(200).json({
+            status: "success",
+            message: "Route deleted successfully",
+            data: result
+        });
+
+    }
 
 
 }

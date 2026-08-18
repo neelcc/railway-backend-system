@@ -1,10 +1,10 @@
 import { NextFunction, Request, Response } from "express";
-import { Station } from "@irctc/shared/src/types/index";
+import { Station, getAllStationParams } from "@irctc/shared/src/types/station";
 import prisma from "../config/prisma";
 import createHttpError from "http-errors";
 import logger from "../config/logger";
-import { getAllStationParams } from "../types";
 import { Prisma } from "../generated/prisma/client";
+import { adminProducer } from "../kafka/producer/adminProducer";
 
 export class StationService {
 
@@ -24,7 +24,7 @@ export class StationService {
             throw error;
         }
 
-        const station = await prisma.station.create({
+        const   station = await prisma.station.create({
             data : {
                 name : name,
                 code : code,
@@ -37,7 +37,9 @@ export class StationService {
         })
 
         logger.info(`Station created successfully: ${station.name} (${station.code})`);
-        
+        await adminProducer.publishStationCreated(station).catch((err) => {
+          logger.error('Failed to publish station created event', { error: err.message });
+     });
         return station;
     }
 

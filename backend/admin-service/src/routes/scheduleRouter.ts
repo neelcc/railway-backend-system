@@ -10,7 +10,8 @@ const scheduleController = new ScheduleController(scheduleService, logger);
 
 
 router.post("/schedule", asyncWrapper(scheduleController.createSchedule));
-
+router.put("/schedule/:scheduleId", asyncWrapper(scheduleController.cancelSchedule));
+router.get("/schedule", asyncWrapper(scheduleController.getAllSchedules));
 
 
 

@@ -11,6 +11,8 @@ const stationController = new StationController(stationService, logger);
 
 router.post("/station", asyncWrapper(stationController.createStation));
 router.get("/station", asyncWrapper(stationController.getAllStations));
+router.get("/station/:id", asyncWrapper(stationController.getStationById));
+
 
 export default router;
 
