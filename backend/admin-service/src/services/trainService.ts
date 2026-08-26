@@ -1,5 +1,6 @@
 import { NextFunction, Request, Response } from "express";
-import { Train, Route, RouteStation } from "@irctc/shared/src/types/index";
+import {Train} from "@irctc/shared/src/types/train";
+import {Route, RouteStation} from "@irctc/shared/src/types/route";
 import createHttpError from "http-errors";
 import prisma from "../config/prisma";
 import logger from "../config/logger";
